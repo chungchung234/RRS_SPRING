@@ -1,27 +1,27 @@
-package com.chung.rrs.service.serviceImpl;
+package service.serviceImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-import com.chung.rrs.dto.RestaurantDto;
-import com.chung.rrs.io.FileIO;
-import com.chung.rrs.service.rrsService;
 
+import dto.RestaurantDto;
 import fomat.Format;
+import io.FileIO;
+import service.rrsService;
 
-public class rreServiceImpl implements rrsService{
-	static Scanner scanner = new Scanner(System.in);
-	
+public class rreServiceImpl implements rrsService {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void add() throws IOException {
         System.out.println("restaurant_name/phone/signature_Menu/menu_Price/rating");
         String restaurant_info = scanner.nextLine();
         String[] temp = restaurant_info.split("/");
-        if(check_Format(temp)){
+        if (check_Format(temp)) {
             System.out.println("Please attention restaurant Format");
             add();
-        }else {
+        } else {
 
             String name = Format.name(temp[0]);
             String phone = Format.phone(temp[1]);
@@ -38,47 +38,47 @@ public class rreServiceImpl implements rrsService{
 
     private static boolean check_Format(String[] temp) {
         RestaurantDto.temp = temp;
-        if(temp[0].isBlank()){
+        if (temp[0].isEmpty()) {
             System.out.println("Name doesn't exist");
             return true;
         }
-        if(temp[1].isBlank()){
+        if (temp[1].isEmpty()) {
             System.out.println("PhoneNumber doesn't exist");
             return true;
         }
         for (int i = 0; i < temp[1].length(); i++) {
             char c = temp[1].charAt(i);
-            if(c=='-')continue;
-            if( c<'0' ||c>'9'){
+            if (c == '-') continue;
+            if (c < '0' || c > '9') {
                 System.out.println("PhoneNumber insert only numbers");
                 return true;
             }
         }
-        if(temp[2].isBlank()){
+        if (temp[2].isEmpty()) {
             System.out.println("Signature Menu doesn't exist");
             return true;
         }
-        if(temp[3].isBlank()){
+        if (temp[3].isEmpty()) {
             System.out.println("Price doesn't exist");
             return true;
         }
 
         for (int i = 0; i < temp[3].length(); i++) {
-            char c= temp[3].charAt(i);
+            char c = temp[3].charAt(i);
 
-            if( c<'0' ||c>'9'){
+            if (c < '0' || c > '9') {
                 System.out.println("Price insert only numbers");
                 return true;
             }
         }
-        if(temp[4].isBlank()){
+        if (temp[4].isEmpty()) {
             System.out.println("Rating doesn't exist");
             return true;
         }
         for (int i = 0; i < temp[3].length(); i++) {
-            char c= temp[3].charAt(i);
+            char c = temp[3].charAt(i);
 
-            if( c<'0' ||c>'9'){
+            if (c < '0' || c > '9') {
                 System.out.println("Price insert only numbers");
                 return true;
             }
@@ -90,13 +90,13 @@ public class rreServiceImpl implements rrsService{
     public static void delete() throws IOException {
         System.out.println("Insert Restaurant Name");
         String name = scanner.next();
-        if(check_Format(new String[]{name, "0", "signature_Menu", "0", "0"})){
+        if (check_Format(new String[]{name, "0", "signature_Menu", "0", "0"})) {
             delete();
         }
 
-        if(FileIO.delete_Restaurant(name)){
+        if (FileIO.delete_Restaurant(name)) {
             System.out.println("Delete complete");
-        }else {
+        } else {
             System.out.println("Can't find Restaurant Name");
         }
         System.out.println("Enter 'X' Go Menu");
@@ -106,15 +106,15 @@ public class rreServiceImpl implements rrsService{
     public static void search() throws IOException {
         System.out.println("Insert Restaurant Name");
         String name = scanner.next();
-        if(check_Format(new String[]{name, "0", "signature_Menu", "0", "0"})){
+        if (check_Format(new String[]{name, "0", "signature_Menu", "0", "0"})) {
             search();
         }
         RestaurantDto restaurant = FileIO.search_Restaurant(name);
-        if(restaurant != null){
+        if (restaurant != null) {
             System.out.println(
                     restaurant.getString()
             );
-        }else {
+        } else {
             System.out.println("Can't find Restaurant Name");
         }
         System.out.println("Enter 'X' Go Menu");
@@ -126,7 +126,7 @@ public class rreServiceImpl implements rrsService{
         System.out.println("restaurant_name/phone/signature_Menu/menu_Price/rating");
         String restaurant_info = scanner.nextLine();
         String[] temp = restaurant_info.split("/");
-        if(check_Format(temp)){
+        if (check_Format(temp)) {
             System.out.println("Please attention restaurant Format");
             modify();
         }
@@ -136,12 +136,11 @@ public class rreServiceImpl implements rrsService{
         String signature_Menu = Format.menu(temp[2]);
         int menu_Price = Format.price(temp[3]);
         int rating = Format.rating(temp[4]);
-        RestaurantDto restaurant = new RestaurantDto(name,phone,signature_Menu,menu_Price,rating);
+        RestaurantDto restaurant = new RestaurantDto(name, phone, signature_Menu, menu_Price, rating);
         //id 구현해서 하나 추가할때마다 카운트 증가하게 하고싶은데 텍스트파일을 매번 읽을 수 도 없구 어카지;;;
-        if(FileIO.update_Restaurant(restaurant)){
+        if (FileIO.update_Restaurant(restaurant)) {
             System.out.println("Modify Success");
-        }
-        else{
+        } else {
             System.out.println("Can't find Restaurant Name");
         }
         System.out.println("Enter 'X' Go Menu");
@@ -159,14 +158,14 @@ public class rreServiceImpl implements rrsService{
         System.out.println("Enter 'X' Go Menu");
         String _temp = scanner.next();
     }
-    
+
     public static void pick_Me_One() throws IOException {
         RestaurantDto restaurant = FileIO.random_Restaurant();
-        if(restaurant != null){
+        if (restaurant != null) {
             System.out.println(
                     restaurant.getString()
             );
-        }else {
+        } else {
             System.out.println("Can't find Restaurant Name");
         }
         System.out.println("Enter 'X' Go Menu");

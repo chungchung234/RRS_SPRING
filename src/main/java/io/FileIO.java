@@ -1,11 +1,11 @@
-package com.chung.rrs.io;
+package io;
 
 
 
 import java.io.*;
 import java.util.ArrayList;
 
-import com.chung.rrs.dto.RestaurantDto;
+import dto.RestaurantDto;
 
 public class FileIO {
     private static File file = new File("restaurant_rating.txt");

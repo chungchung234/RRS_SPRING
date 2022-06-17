@@ -1,4 +1,4 @@
-package com.chung.rrs.controller;
+package controller;
 
 
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.util.Scanner;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chung.rrs.dto.RestaurantDto;
-import com.chung.rrs.service.serviceImpl.rreServiceImpl;
+import service.serviceImpl.rreServiceImpl;
+
 @RestController
 public class rrsController {
     @RequestMapping("/")

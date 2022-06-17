@@ -1,11 +1,10 @@
-package com.chung.rrs.dto;
+package dto;
 
 
 
 import java.io.IOException;
 import java.util.*;
 
-import com.chung.rrs.io.FileIO;
 
 import fomat.Format;
 

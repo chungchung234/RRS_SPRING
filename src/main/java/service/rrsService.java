@@ -1,4 +1,4 @@
-package com.chung.rrs.service;
+package service;
 
 public interface rrsService {
 	/**
